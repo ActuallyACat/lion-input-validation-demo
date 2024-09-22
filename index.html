@@ -1,2 +1,16 @@
 <script type="module" src="./lion-demo.js"></script>
+
+<strong>Validators applied after DOM content loaded:</strong>
+<lion-form>
+  <form action="/" method="POST">
+    <lion-input
+      id="first_name"
+      name="first_name"
+      label="First Name"
+    ></lion-input>
+    <lion-button-submit>Submit</lion-button-submit>
+  </form>
+</lion-form>
+
+<strong>Validators applied within Lit</strong>
 <lion-demo></lion-demo>

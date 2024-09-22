@@ -1,27 +1,37 @@
-import { html, LitElement } from 'lit';
-
 // As a side-effect this way of importing defines the custom elements, eg. <lion-button>, ready for use
-import '@lion/ui/define/lion-button.js';
-import '@lion/ui/define/lion-tooltip.js';
+import { html, LitElement } from "lit";
+import { Required } from "@lion/ui/form-core.js";
+import { loadDefaultFeedbackMessages } from "@lion/ui/validate-messages.js";
+import "@lion/ui/define/lion-input.js";
+import "@lion/ui/define/lion-button.js";
+import "@lion/ui/define/lion-button-submit.js";
+import "@lion/ui/define/lion-form.js";
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+    loadDefaultFeedbackMessages();
+    const first_name = document.querySelector("#first_name");
+    first_name.validators = [new Required()];
+  },
+  false
+);
 
 export class LionDemo extends LitElement {
-  static properties = {
-    header: { type: String },
-    counter: { type: Number },
-  };
-  constructor() {
-    super();
-    this.header = 'Hey dev';
-    this.counter = 0;
-  }
   render() {
     return html`
-      <h1>${this.header}! Increment is at Nr: ${this.counter}</h1>
-      <lion-tooltip has-arrow>
-        <lion-button slot="invoker" @click=${() => {this.counter += 1; console.log(this.counter);}}>increment</lion-button>
-        <span slot="content"> +1 </span>
-      </lion-tooltip>
+      <lion-form>
+        <form action="https://formspree.io/f/xvovqzqk" method="POST">
+          <lion-input
+            id="first_name_lit"
+            name="first_name_lit"
+            label="First Name"
+            .validators="${[new Required()]}"
+          ></lion-input>
+          <lion-button-submit>Submit</lion-button-submit>
+        </form>
+      </lion-form>
     `;
   }
 }
-customElements.define('lion-demo', LionDemo);
+customElements.define("lion-demo", LionDemo);
